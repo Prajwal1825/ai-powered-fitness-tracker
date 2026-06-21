@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:mysql://localhost:3306/ai_fitness_tracker
+spring.datasource.username=root
+spring.datasource.password=YOUR_PASSWORD
+
+app.gemini.apiKey=YOUR_GEMINI_API_KEY
