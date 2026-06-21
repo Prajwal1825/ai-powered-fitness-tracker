@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Fitness Tracker Premium</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <section id="authPage" class="auth-page">
+    <div class="auth-left">
+      <div class="brand-pill">AI + Java Full Stack</div>
+      <h1>AI Powered Fitness & Calorie Tracker</h1>
+      <p>Track food, workouts, goals, AI food scans, and AI health tips in one beautiful dashboard.</p>
+      <div class="hero-stats"><span>Calories</span><span>Workouts</span><span>AI Tips</span></div>
+    </div>
+    <div class="auth-card">
+      <div class="tabs"><button class="tab active" onclick="showAuth('login')">Login</button><button class="tab" onclick="showAuth('register')">Register</button></div>
+      <form id="loginForm" class="auth-form">
+        <h2>Welcome Back</h2><input id="loginEmail" type="email" placeholder="Email" required><input id="loginPassword" type="password" placeholder="Password" required><button type="submit">Login</button><p id="loginMsg"></p>
+      </form>
+      <form id="registerForm" class="auth-form hidden">
+        <h2>Create Account</h2><input id="regName" placeholder="Full Name" required><input id="regEmail" type="email" placeholder="Email" required><input id="regPassword" type="password" placeholder="Password" required><input id="regWeight" type="number" placeholder="Weight in kg"><input id="regGoal" placeholder="Goal e.g. Lose fat"><button type="submit">Register</button><p id="regMsg"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="appPage" class="app hidden">
+    <aside class="sidebar">
+      <h2>FitAI</h2><p id="sideUser">User</p>
+      <nav><button onclick="showSection('dashboard')">Dashboard</button><button onclick="showSection('goals')">Goals</button><button onclick="showSection('food')">Food Log</button><button onclick="showSection('workout')">Workout</button><button onclick="showSection('ai')">AI Scan</button><button onclick="showSection('tips')">AI Health Tips</button><button onclick="showSection('profile')">Profile</button></nav>
+      <button class="logout" onclick="logout()">Logout</button>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><h1 id="welcomeText">Dashboard</h1><p>Monitor your daily health progress</p></div><button onclick="refreshDashboard()">Refresh</button></header>
+
+      <div id="dashboard" class="section active-section">
+        <div class="cards"><div class="card"><span>Target</span><h2 id="target">0</h2></div><div class="card"><span>Consumed</span><h2 id="consumed">0</h2></div><div class="card"><span>Burned</span><h2 id="burned">0</h2></div><div class="card highlight"><span>Remaining</span><h2 id="remaining">0</h2></div></div>
+        <div class="grid"><div class="panel"><h3>Calorie Progress</h3><div class="progress"><div id="progressBar"></div></div><p id="progressText">0%</p></div><div class="panel"><h3>Today Summary</h3><div class="mini-chart"><div id="bar1"></div><div id="bar2"></div><div id="bar3"></div></div></div></div>
+        <div class="grid"><div class="panel"><h3>Recent Foods</h3><table><tbody id="foodRows"></tbody></table></div><div class="panel"><h3>Recent Workouts</h3><table><tbody id="workoutRows"></tbody></table></div></div>
+        <div class="panel tips-panel"><div class="tips-head"><h3>AI Health Tips</h3><button onclick="loadTips()">Generate Tips</button></div><ul id="dashboardTips"><li>Tips will appear after dashboard loads.</li></ul></div>
+      </div>
+
+      <div id="goals" class="section"><div class="panel form-panel"><h2>Set Daily Goals</h2><input id="goalCalories" type="number" placeholder="Calories Goal"><input id="goalSteps" type="number" placeholder="Steps Goal"><input id="goalWorkout" type="number" placeholder="Workout Minutes"><input id="goalWater" type="number" placeholder="Water ml"><button onclick="saveGoal()">Save Goal</button></div></div>
+      <div id="food" class="section"><div class="panel form-panel"><h2>Add Food</h2><input id="foodName" placeholder="Food name"><input id="quantity" placeholder="Quantity"><input id="calories" type="number" placeholder="Calories"><input id="protein" type="number" placeholder="Protein"><input id="fat" type="number" placeholder="Fat"><button onclick="saveFood()">Add Food</button></div></div>
+      <div id="workout" class="section"><div class="panel form-panel"><h2>Add Workout</h2><input id="workoutName" placeholder="Workout name"><input id="duration" type="number" placeholder="Duration minutes"><input id="burnedInput" type="number" placeholder="Calories burned"><button onclick="saveWorkout()">Add Workout</button></div></div>
+      <div id="ai" class="section"><div class="panel form-panel scan"><h2>AI Food Image Scan</h2><p>Upload food image. Demo mode saves estimated calories; add Gemini key for real AI.</p><input id="foodImage" type="file" accept="image/*"><button onclick="analyzeImage()">Analyze & Save</button><pre id="aiResult">Result will appear here...</pre></div></div>
+      <div id="tips" class="section"><div class="panel form-panel tips-page"><h2>AI Health Tips</h2><p>Get simple personalized suggestions based on your goal, consumed calories, burned calories, and remaining calories.</p><button onclick="loadTips()">Generate My Tips</button><div id="tipsMode" class="mode-pill">Smart tips mode</div><ul id="tipsList" class="tips-list"></ul></div></div>
+      <div id="profile" class="section"><div class="panel profile"><h2>Profile</h2><p><b>Name:</b> <span id="pName"></span></p><p><b>Email:</b> <span id="pEmail"></span></p><p><b>Weight:</b> <span id="pWeight"></span> kg</p><p><b>Goal:</b> <span id="pGoal"></span></p></div></div>
+    </main>
+  </section>
+  <script src="/js/app.js"></script>
+</body>
+</html>

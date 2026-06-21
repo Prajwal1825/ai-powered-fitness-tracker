@@ -1,0 +1,12 @@
+com\prajwal\fitness\model\Goal.class
+com\prajwal\fitness\controller\ApiController$DashboardData.class
+com\prajwal\fitness\repository\WorkoutLogRepository.class
+com\prajwal\fitness\controller\ApiController.class
+com\prajwal\fitness\model\FoodLog.class
+com\prajwal\fitness\model\WorkoutLog.class
+com\prajwal\fitness\AiFitnessTrackerApplication.class
+com\prajwal\fitness\repository\FoodLogRepository.class
+com\prajwal\fitness\controller\PageController.class
+com\prajwal\fitness\model\User.class
+com\prajwal\fitness\repository\UserRepository.class
+com\prajwal\fitness\repository\GoalRepository.class
