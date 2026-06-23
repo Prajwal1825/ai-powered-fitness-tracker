@@ -43,12 +43,16 @@
 
       <div id="goals" class="section"><div class="panel form-panel"><h2>Set Daily Goals</h2><input id="goalCalories" type="number" placeholder="Calories Goal"><input id="goalSteps" type="number" placeholder="Steps Goal"><input id="goalWorkout" type="number" placeholder="Workout Minutes"><input id="goalWater" type="number" placeholder="Water ml"><button onclick="saveGoal()">Save Goal</button></div></div>
       <div id="food" class="section"><div class="panel form-panel"><h2>Add Food</h2><input id="foodName" placeholder="Food name"><input id="quantity" placeholder="Quantity"><input id="calories" type="number" placeholder="Calories"><input id="protein" type="number" placeholder="Protein"><input id="fat" type="number" placeholder="Fat"><button onclick="saveFood()">Add Food</button></div></div>
-      <div id="workout" class="section"><div class="panel form-panel"><h2>Add Workout</h2><input id="workoutName" placeholder="Workout name"><input id="duration" type="number" placeholder="Duration minutes"><input id="burnedInput" type="number" placeholder="Calories burned"><button onclick="saveWorkout()">Add Workout</button></div></div>
+      <div id="workout" class="section"><div class="panel form-panel"><h2>Add Workout</h2><input id="workoutName" placeholder="Workout name"><input id="duration" type="number" placeholder="Duration minutes"> <!--<input id="burnedInput" type="number" placeholder="Calories burned">--> <button onclick="saveWorkout()">Add Workout</button></div></div>
       <div id="ai" class="section"><div class="panel form-panel scan"><h2>AI Food Image Scan</h2><p>Upload food image. Demo mode saves estimated calories; add Gemini key for real AI.</p><input id="foodImage" type="file" accept="image/*"><button onclick="analyzeImage()">Analyze & Save</button><pre id="aiResult">Result will appear here...</pre></div></div>
       <div id="tips" class="section"><div class="panel form-panel tips-page"><h2>AI Health Tips</h2><p>Get simple personalized suggestions based on your goal, consumed calories, burned calories, and remaining calories.</p><button onclick="loadTips()">Generate My Tips</button><div id="tipsMode" class="mode-pill">Smart tips mode</div><ul id="tipsList" class="tips-list"></ul></div></div>
       <div id="profile" class="section"><div class="panel profile"><h2>Profile</h2><p><b>Name:</b> <span id="pName"></span></p><p><b>Email:</b> <span id="pEmail"></span></p><p><b>Weight:</b> <span id="pWeight"></span> kg</p><p><b>Goal:</b> <span id="pGoal"></span></p></div></div>
     </main>
   </section>
+
   <script src="/js/app.js"></script>
+  <!-- <script src="js/app.js"></script> -->
+  <!-- <script src="./js/app.js"></script> -->
+  <!-- <script src="/js/app.js"></script> -->
 </body>
 </html>

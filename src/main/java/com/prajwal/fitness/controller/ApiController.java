@@ -88,11 +88,34 @@ public class ApiController {
         return foods.save(f);
     }
 
+    // @PostMapping("/workouts")
+    // public WorkoutLog saveWorkout(@RequestBody WorkoutLog w) {
+    //     return workouts.save(w);
+    // }
     @PostMapping("/workouts")
     public WorkoutLog saveWorkout(@RequestBody WorkoutLog w) {
-        return workouts.save(w);
-    }
+        String workout = w.getWorkoutName().toLowerCase();
+     int minutes = w.getDurationMinutes();
 
+     int rate = 5; // default value
+
+     if (workout.contains("run")) {
+        rate = 10;
+     } else if (workout.contains("walk")) {
+        rate = 4;
+     } else if (workout.contains("cycle")) {
+        rate = 8;
+     } else if (workout.contains("gym")) {
+        rate = 7;
+     }
+
+     int calories = rate * minutes;
+
+     w.setCaloriesBurned(calories);
+
+     return workouts.save(w);
+    }
+    
     @PostMapping("/ai/analyze")
     public Map<String, Object> analyze(@RequestParam Long userId,
                                        @RequestParam("image") MultipartFile image) {
@@ -224,16 +247,38 @@ Return ONLY valid JSON:
         return node.has(field) ? node.get(field).asDouble() : defaultValue;
     }
 
+    // private DashboardData buildDashboardData(Long userId) {
+    //     List<FoodLog> fs = foods.findByUserIdOrderByIdDesc(userId);
+    //     List<WorkoutLog> ws = workouts.findByUserIdOrderByIdDesc(userId);
+    //     Goal g = goals.findTopByUserIdOrderByIdDesc(userId).orElse(null);
+    //     int consumed = fs.stream().mapToInt(f -> f.getCalories() == null ? 0 : f.getCalories()).sum();
+    //     int burned = ws.stream().mapToInt(w -> w.getCaloriesBurned() == null ? 0 : w.getCaloriesBurned()).sum();
+    //     int target = g == null || g.getCaloriesGoal() == null ? 2000 : g.getCaloriesGoal();
+    //     int remaining = target - consumed + burned;
+    //     return new DashboardData(fs, ws, g, consumed, burned, target, remaining);
+    // }
+
     private DashboardData buildDashboardData(Long userId) {
-        List<FoodLog> fs = foods.findByUserIdOrderByIdDesc(userId);
-        List<WorkoutLog> ws = workouts.findByUserIdOrderByIdDesc(userId);
-        Goal g = goals.findTopByUserIdOrderByIdDesc(userId).orElse(null);
-        int consumed = fs.stream().mapToInt(f -> f.getCalories() == null ? 0 : f.getCalories()).sum();
-        int burned = ws.stream().mapToInt(w -> w.getCaloriesBurned() == null ? 0 : w.getCaloriesBurned()).sum();
-        int target = g == null || g.getCaloriesGoal() == null ? 2000 : g.getCaloriesGoal();
-        int remaining = target - consumed + burned;
-        return new DashboardData(fs, ws, g, consumed, burned, target, remaining);
-    }
+    List<FoodLog> fs = foods.findByUserIdOrderByIdDesc(userId);
+    List<WorkoutLog> ws = workouts.findByUserIdOrderByIdDesc(userId);
+    Goal g = goals.findTopByUserIdOrderByIdDesc(userId).orElse(null);
+
+    int consumed = fs.stream()
+            .mapToInt(f -> f.getCalories() == null ? 0 : f.getCalories())
+            .sum();
+
+    int burned = ws.stream()
+            .mapToInt(w -> w.getCaloriesBurned() == null ? 0 : w.getCaloriesBurned())
+            .sum();
+
+    int target = (g != null && g.getCaloriesGoal() != null && g.getCaloriesGoal() > 0)
+            ? g.getCaloriesGoal()
+            : 2000;
+
+    int remaining = target - consumed + burned;
+
+    return new DashboardData(fs, ws, g, consumed, burned, target, remaining);
+ }
 
     private List<String> generateHealthTips(DashboardData data) {
         List<String> tips = new ArrayList<>();
